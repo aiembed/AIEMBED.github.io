@@ -1,0 +1,74 @@
+* {
+  box-sizing: border-box;
+}
+
+
+
+.scroll-bound {
+  height: 0vh;
+}
+.scroll-bound .content {
+  height: 160vh;
+  width: 100%;
+  position: absolute;
+  top: 100;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+    transition: transform 0.5s ease;
+    
+}
+.scroll-bound video {
+  width: 100%;
+}
+
+
+/* Hide the default cursor */
+
+iframe {
+    pointer-events: none;
+}
+
+.dash-viewport .dash-canvas .plotly .modebar {
+    display: none !important;
+}
+
+iframe {
+    position: relative;
+}
+
+.dash-viewport {
+    height: 100% !important;
+    width: 100% !important;
+    position: relative !important;
+    left: 0 !important;
+    top: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+}
+
+.dash-control {
+    display: none !important;
+}
+
+
+
+
+
+body {
+  cursor: none; /* Hide the default cursor */
+}
+
+.custom-cursor {
+  width: 20px; /* Adjust the size as needed */
+  height: 20px; /* Adjust the size as needed */
+  border: 10px solid white; /* Border style for the circle */
+  border-radius: 50%; /* Make it circular */
+  mix-blend-mode: difference; /* Apply negative color effect */
+  pointer-events: none; /* Ensure the cursor doesn't interfere with interactions */
+  position: fixed;
+  top: -10px; /* Offset to adjust the cursor position */
+  left: -10px; /* Offset to adjust the cursor position */
+  z-index: 9999; /* Ensure the cursor is on top of other elements */
+}
