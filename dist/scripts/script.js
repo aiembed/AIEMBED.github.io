@@ -64,12 +64,6 @@ form.addEventListener("submit", function (event) {
         }
         formFeedback.style.display = "block";
     })
-    .catch((error) => {
-        console.error("Error:", error);
-        formFeedback.textContent = "An error occurred.";
-        formFeedback.style.color = "red";
-        formFeedback.style.display = "block";
-    });
 });
 
 
