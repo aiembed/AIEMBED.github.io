@@ -50,20 +50,23 @@ form.addEventListener("submit", function (event) {
 		body: formData,
 	})
     .then((response) => response.text()) // Parse the response as text
-    .then((data) => {
-
-        if (data.includes("faild")) { // Check for a success message in the response
-            formFeedback.textContent = "Sending failed. Please directly email us at info@roneu.com: " + data;
-            formFeedback.style.color = "red";
+    .then(data => {
+        if (data.status === "success") {
+            formFeedback.textContent = "Sending successful."; 
+            formFeedback.style.color = "green";
+        } else if (data.status === "error") {
+                  formFeedback.textContent = "Please contact directly: info@aiembed.com";
+                  formFeedback.style.color = "green";
+          const errorMessage = data.message;
         } else {
-            formFeedback.textContent = "Sending successful."; // Display the actual response
+            formFeedback.textContent = "Sending successful."; 
             formFeedback.style.color = "green";
         }
         formFeedback.style.display = "block";
     })
     .catch((error) => {
         console.error("Error:", error);
-        formFeedback.textContent = "An error occurred. Please try again later.";
+        formFeedback.textContent = "An error occurred.";
         formFeedback.style.color = "red";
         formFeedback.style.display = "block";
     });
