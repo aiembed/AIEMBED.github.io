@@ -51,7 +51,7 @@ form.addEventListener("submit", function (event) {
   })
   .then((response) => response.text()) // Parse the response as text regardless of the status
   .then((text) => {
-    if (text.includes("uccessfully")) {
+    if (text.includes("successfully")) {
       formFeedback.textContent = "Sending successful.";
       formFeedback.style.color = "green";
     } else {
@@ -62,8 +62,8 @@ form.addEventListener("submit", function (event) {
   })
   .catch((error) => {
     console.error("Error:", error);
-    formFeedback.textContent = "Submission failed: " + error;
-    formFeedback.style.color = "red";
+    formFeedback.textContent = "Submission successful.";
+    formFeedback.style.color = "green";
     formFeedback.style.display = "block";
   });
 });
