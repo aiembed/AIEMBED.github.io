@@ -49,35 +49,29 @@ form.addEventListener("submit", function (event) {
 		method: "POST",
 		body: formData,
 	})
-    .then((response) => response.json()) // Parse the response as JSON
-    .then((data) => {
-      if (data.success) {
-        formFeedback.textContent = "Sending successful.";
-        formFeedback.style.color = "green";
-      } else if (data.error) {
-        formFeedback.textContent = "Please contact directly: info@aiembed.com";
-        formFeedback.style.color = "red"; // Change the color to red for errors
-        const errorMessage = data.error;
-      } else {
-        formFeedback.textContent = "Sending seems to be successful.";
-        formFeedback.style.color = "yellow"; // Change the color to red for other cases
-      }
-      formFeedback.style.display = "block";
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-      formFeedback.textContent = "SENDING SUCCESSFUL.";
+  .then((response) => {
+    if (response.status === 200) {
+      return response.json();
+    } else {
+      throw new Error("Form submission failed with status: " + response.status);
+    }
+  })
+  .then((data) => {
+    if (data.success) {
+      formFeedback.textContent = "Sending successful.";
       formFeedback.style.color = "green";
-      formFeedback.style.display = "block";
-    });
-});
-
-
-
-
-
-
-
-
-
-
+    } else if (data.error) {
+      formFeedback.textContent = "Please contact directly: info@aiembed.com";
+      formFeedback.style.color = "red";
+    } else {
+      formFeedback.textContent = "Sending seems to be successful.";
+      formFeedback.style.color = "yellow";
+    }
+    formFeedback.style.display = "block";
+  })
+  .catch((error) => {
+    console.error("Error:", error);
+    formFeedback.textContent = "Form submission failed. Please try again later.";
+    formFeedback.style.color = "red";
+    formFeedback.style.display = "block";
+  });
