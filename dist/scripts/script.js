@@ -41,37 +41,29 @@ const form = document.getElementById("fcf-form-id");
 const formFeedback = document.getElementById("form-feedback");
 
 form.addEventListener("submit", function (event) {
-	event.preventDefault();
-	const formData = new FormData(form);
+  event.preventDefault();
+  const formData = new FormData(form);
 
-	// Use fetch to submit the form data to your PHP file
-	fetch("https://formspree.io/f/mgejqbgy", {
-		method: "POST",
-		body: formData,
-	})
+  // Use fetch to submit the form data to your PHP file
+  fetch("https://formspree.io/f/mgejqbgy", {
+    method: "POST",
+    body: formData,
+  })
   .then((response) => {
     if (response.status === 200) {
-      return response.json();
+      return response.text(); // Parse the response as text
     } else {
-      throw new Error("Form submission failed with status: " + response.status);
+      throw new Error("Failed: " + response.status);
     }
   })
-  .then((data) => {
-    if (data.success) {
+  .then((text) => {
+    if (text.includes("The form was submitted successfully.")) {
       formFeedback.textContent = "Sending successful.";
       formFeedback.style.color = "green";
-    } else if (data.error) {
-      formFeedback.textContent = "Please contact directly: info@aiembed.com";
-      formFeedback.style.color = "red";
     } else {
-      formFeedback.textContent = "Sending seems to be successful.";
-      formFeedback.style.color = "yellow";
+      formFeedback.textContent = "Sending error:" + text;
+      formFeedback.style.color = "red";
     }
     formFeedback.style.display = "block";
-  })
-  .catch((error) => {
-    console.error("Error:", error);
-    formFeedback.textContent = "Form submission failed. Please try again later.";
-    formFeedback.style.color = "red";
-    formFeedback.style.display = "block";
   });
+});
