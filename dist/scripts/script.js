@@ -49,23 +49,28 @@ form.addEventListener("submit", function (event) {
 		method: "POST",
 		body: formData,
 	})
-    .then((response) => response.text()) // Parse the response as text
-    .then(data => {
-        if (data.status === "success") {
-            formFeedback.textContent = "Sending successful."; 
-            formFeedback.style.color = "green";
-        } else if (data.status === "error") {
-                  formFeedback.textContent = "Please contact directly: info@aiembed.com";
-                  formFeedback.style.color = "green";
-          const errorMessage = data.message;
-        } else {
-            formFeedback.textContent = "Sending successful."; 
-            formFeedback.style.color = "green";
-        }
-        formFeedback.style.display = "block";
+    .then((response) => response.json()) // Parse the response as JSON
+    .then((data) => {
+      if (data.success) {
+        formFeedback.textContent = "Sending successful.";
+        formFeedback.style.color = "green";
+      } else if (data.error) {
+        formFeedback.textContent = "Please contact directly: info@aiembed.com";
+        formFeedback.style.color = "red"; // Change the color to red for errors
+        const errorMessage = data.error;
+      } else {
+        formFeedback.textContent = "Sending seems to be successful.";
+        formFeedback.style.color = "yellow"; // Change the color to red for other cases
+      }
+      formFeedback.style.display = "block";
     })
+    .catch((error) => {
+      console.error("Error:", error);
+      formFeedback.textContent = "SENDING SUCCESSFUL.";
+      formFeedback.style.color = "green";
+      formFeedback.style.display = "block";
+    });
 });
-
 
 
 
