@@ -49,21 +49,25 @@ form.addEventListener("submit", function (event) {
     method: "POST",
     body: formData,
   })
-  .then((response) => {
-    if (response.status === 200) {
-      return response.text(); // Parse the response as text
-    } else {
-      throw new Error("Failed: " + response.status);
-    }
-  })
+  .then((response) => response.text()) // Parse the response as text regardless of the status
   .then((text) => {
-    if (text.includes("The form was submitted successfully.")) {
+    if (text.includes("uccessfully")) {
       formFeedback.textContent = "Sending successful.";
       formFeedback.style.color = "green";
     } else {
-      formFeedback.textContent = "Sending error:" + text;
-      formFeedback.style.color = "red";
+      formFeedback.textContent = "Sending error: " + text;
+      formFeedback.style.color = "yellow";
     }
+    formFeedback.style.display = "block";
+  })
+  .catch((error) => {
+    console.error("Error:", error);
+    formFeedback.textContent = "Submission failed: " + error;
+    formFeedback.style.color = "red";
     formFeedback.style.display = "block";
   });
 });
+
+
+
+
