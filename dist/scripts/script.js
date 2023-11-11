@@ -55,7 +55,10 @@ form.addEventListener("submit", function (event) {
       formFeedback.textContent = "Sending successful.";
       formFeedback.style.color = "green";
     } else {
-      formFeedback.textContent = "Sending error: " + text;
+      const errorMatch = text.match(/<ul class="validation-error-list">(.*?)<\/ul>/);
+      const errorMessage = errorMatch ? errorMatch[0] : "Unknown error";
+  
+      formFeedback.innerHTML = "Sending error: " + errorMessage;
       formFeedback.style.color = "yellow";
     }
     formFeedback.style.display = "block";
@@ -67,7 +70,6 @@ form.addEventListener("submit", function (event) {
     formFeedback.style.display = "block";
   });
 });
-
 
 
 
