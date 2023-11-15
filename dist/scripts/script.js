@@ -1,3 +1,43 @@
+const form = document.getElementById("fcf-form-id");
+const formFeedback = document.getElementById("form-feedback");
+
+form.addEventListener("submit", function (event) {
+  event.preventDefault();
+  const formData = new FormData(form);
+
+  // Use fetch to submit the form data to your PHP file
+  fetch("https://formspree.io/f/mgejqbgy", {
+    method: "POST",
+    body: formData,
+  })
+  .then((response) => response.text()) // Parse the response as text regardless of the status
+  .then((text) => {
+    if (text.includes("successfully")) {
+      formFeedback.textContent = "Sending successful.";
+      formFeedback.style.color = "green";
+    } else {
+      const errorMatch = text.match(/<ul class="validation-error-list">(.*?)<\/ul>/);
+      const errorMessage = errorMatch ? errorMatch[0] : "Unknown error";
+  
+      formFeedback.innerHTML = "Sending error: " + errorMessage;
+      formFeedback.style.color = "yellow";
+    }
+    formFeedback.style.display = "block";
+  })
+  .catch((error) => {
+    console.error("Error:", error);
+    formFeedback.textContent = "Submission successful.";
+    formFeedback.style.color = "green";
+    formFeedback.style.display = "block";
+  });
+});
+
+
+
+
+
+// play frame as scrolled
+
 const registerVideo = (bound, video) => {
 	bound = document.querySelector(bound);
 	video = document.querySelector(video);
@@ -37,39 +77,41 @@ document.addEventListener("mousemove", (e) => {
 
 
 
-const form = document.getElementById("fcf-form-id");
-const formFeedback = document.getElementById("form-feedback");
 
-form.addEventListener("submit", function (event) {
-  event.preventDefault();
-  const formData = new FormData(form);
 
-  // Use fetch to submit the form data to your PHP file
-  fetch("https://formspree.io/f/mgejqbgy", {
-    method: "POST",
-    body: formData,
-  })
-  .then((response) => response.text()) // Parse the response as text regardless of the status
-  .then((text) => {
-    if (text.includes("successfully")) {
-      formFeedback.textContent = "Sending successful.";
-      formFeedback.style.color = "green";
-    } else {
-      const errorMatch = text.match(/<ul class="validation-error-list">(.*?)<\/ul>/);
-      const errorMessage = errorMatch ? errorMatch[0] : "Unknown error";
-  
-      formFeedback.innerHTML = "Sending error: " + errorMessage;
-      formFeedback.style.color = "yellow";
-    }
-    formFeedback.style.display = "block";
-  })
-  .catch((error) => {
-    console.error("Error:", error);
-    formFeedback.textContent = "Submission successful.";
-    formFeedback.style.color = "green";
-    formFeedback.style.display = "block";
+
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  const video = document.getElementById('video');
+  const videoContainer = document.getElementById('video-container2');
+
+  let isVideoPlaying = false;
+
+  const options = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.5, // Adjust this threshold based on your needs
+  };
+
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !isVideoPlaying) {
+        video.play();
+        isVideoPlaying = true;
+      } else if (!entry.isIntersecting && isVideoPlaying) {
+        video.pause();
+        isVideoPlaying = false;
+      }
+    });
+  }, options);
+
+  observer.observe(videoContainer);
+
+  video.addEventListener('ended', function() {
+    isVideoPlaying = false;
   });
 });
-
-
-
