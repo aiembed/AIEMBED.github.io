@@ -5,20 +5,29 @@
       <loc>https://aiembed.github.io/</loc>
       <lastmod>2023-11-18T19:10:53+01:00</lastmod>
 <changefreq>weekly</changefreq>
-<name>Home Page</name>
+<name>AI EMBED | DualBrain™</name>
       <priority>1.0</priority>
+</url>
+                <url>
+      <loc>https://aiembed.github.io/#methodology</loc>
+      <lastmod>2023-11-18T19:10:53+01:00</lastmod>
+<changefreq>weekly</changefreq>
+<name>AI EMBED | NeuDB™</name>
+      <priority>0.9</priority>
 </url>
 <url>
       <loc>https://aiembed.github.io/#contact-us</loc>
       <lastmod>2023-11-18T19:10:53+01:00</lastmod>
-<changefreq>weekly</changefreq>      
+<changefreq>weekly</changefreq>   
+<name>CONTACT</name>
 <priority>0.8</priority>
 </url>
 <url>
       <loc>https://aiembed.github.io/#paper-download</loc>
       <lastmod>2023-11-18T19:10:53+01:00</lastmod>
 <changefreq>weekly</changefreq>
-      <priority>0.8</priority>
+    <name>DOWNLOAD</name>
+      <priority>0.7</priority>
 </url>
 
 </urlset>
